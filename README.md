@@ -29,11 +29,11 @@ If you are using the same `consumer_key` and `consumer_secret` all the time, you
 
     OAuthHook.consumer_key = consumer_key
     OAuthHook.consumer_secret = consumer_secret
-    oauth_hook = OAuthHook(access_token, access_token_secret, header_auth=True)
+    oauth_hook = OAuthHook(access_token, access_token_secret, always_oauth_header=True)
 
 Now you need to pass the hook to python-requests, you probably want to do it as a session, so you don't have to do this every time:
 
-    client = requests.session(hooks={'pre_request': oauth_hook})
+    client = requests.session(hooks={'args': oauth_hook})
 
 What you get is python-requests client which you can use the same way as you use requests API. Let's see a GET example:
 
@@ -46,7 +46,7 @@ And a POST example:
 
 Beware that you are not forced to pass the token information to the hook. That way you can retrieve it from the API. Let's see a Twitter example:
 
-    client = requests.session(hooks={'pre_request': OAuthHook(consumer_key=consumer_key, consumer_secret=consumer_secret)})
+    client = requests.session(hooks={'args': OAuthHook(consumer_key=consumer_key, consumer_secret=consumer_secret)})
     response = client.get('https://api.twitter.com/oauth/request_token')
     response = parse_qs(response.content)
     print "Token: %s  Secret: %s" % (response['oauth_token'], response['oauth_token_secret'])
