@@ -19,11 +19,13 @@ Import the hook doing:
 
     from oauth_hook import OAuthHook
 
-You can initialize the hook passing it 5 parameters: `access_token`, `access_token_secret`, `consumer_key`, `consumer_secret` and `header_auth`. First two `access_token` and `access_token_secret` are optional, in case you want to retrieve those from the API service (see later for an example). There are two ways to do initialize the hook. First one:
+You can initialize the hook passing it 5 parameters: `access_token`, `access_token_secret`, `consumer_key`, `consumer_secret`, `auto_oauth_header` and `always_oauth_header`. First two `access_token` and `access_token_secret` are optional, in case you want to retrieve those from the API service (see later for an example). There are two ways to do initialize the hook. First one:
 
-    oauth_hook = OAuthHook(access_token, access_token_secret, consumer_key, consumer_secret, header_auth)
+    oauth_hook = OAuthHook(access_token, access_token_secret, consumer_key, consumer_secret, auto_oauth_header, always_oauth_header)
 
-The `header_auth` parameter lets you chose the authentication method used. It's a boolean, if you set it to `True` you will be using an Authorization header. If your API supports this authentication method, it's the one you should be using and the prefered method by the OAuth spec (<a href="http://tools.ietf.org/html/rfc5849#section-3.5">RFC 5849</a>), an example would be Twitter's API. By default `header_auth` is set to `False`, which means url encoded authentication will be used. This is because this the most widely supported authentication system.
+The `always_oauth_header` parameter lets you chose the authentication method used. It's a boolean, if you set it to `True` you will be using an Authorization header. If your API supports this authentication method, it's the one you should be using and the prefered method by the OAuth spec (<a href="http://tools.ietf.org/html/rfc5849#section-3.5">RFC 5849</a>), an example would be Twitter's API. By default `header_auth` is set to `False`, which means url encoded authentication will be used. This is because this the most widely supported authentication system.
+
+If you `auto_oauth_header` to `True` you will be using an Authorization header when post file.
 
 If you are using the same `consumer_key` and `consumer_secret` all the time, you probably want to setup those fixed, so that you only have to pass the token parameters for setting the hook:
 
