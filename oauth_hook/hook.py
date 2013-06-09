@@ -66,7 +66,7 @@ class OAuthHook(object):
 
         if args['files'] and self.auto_oauth_header or self.always_oauth_header:
             headers.update(self.authorization_header(oauth_params))
-        elif args['method'] in ('GET', 'DELETE'):
+        elif args['method'] in ('GET', 'DELETE') or params:
             params.update(oauth_params)
         else:
             data.update(oauth_params)
